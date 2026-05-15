@@ -33,7 +33,7 @@ async def on_ready():
     now = datetime.now(MY_TIMEZONE)
     i = (now - start_date).days % len(problems)
 
-    if current_hour == 21:
+    if current_hour == 5:
         embed = discord.Embed(title="Problem", description=problems[i][0], color=discord.Color.green())
         await channel.send(embed=embed)
     else:
