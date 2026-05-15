@@ -17,9 +17,9 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 MY_TIMEZONE = zoneinfo.ZoneInfo("America/Los_Angeles")
 current_hour = datetime.now(MY_TIMEZONE).hour
 
-# with open("counter.txt", 'rw') as f:
-#     counter = int(f.read())-1
-#     f.write(counter)
+with open("counter.txt", 'rw') as f:
+    counter = int(f.read())-1
+    f.write(counter)
 counter = 1
 
 @bot.event
