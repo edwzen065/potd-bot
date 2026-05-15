@@ -1,0 +1,27 @@
+name: Daily Bot Trigger
+on:
+  schedule:
+    # 7:00 UTC (Midnight LA) and 12:00 UTC (5:00 AM LA)
+    - cron: '0 7,12 * * *'
+  workflow_dispatch: # This adds a "Run" button so you can test it manually
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.2'
+
+      - name: Install Dependencies
+        run: pip install discord.py
+
+      - name: Execute Script
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        run: python main.py

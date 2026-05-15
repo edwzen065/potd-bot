@@ -10,8 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 
 # --- Start bot
-intents = discord.Intents.default()
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = discord.Client(intents=discord.Intents.default())
 
 # --- Timezone logic
 MY_TIMEZONE = zoneinfo.ZoneInfo("America/Los_Angeles")
