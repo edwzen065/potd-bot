@@ -17,9 +17,6 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 MY_TIMEZONE = zoneinfo.ZoneInfo("America/Los_Angeles")
 current_hour = datetime.now(MY_TIMEZONE).hour
 
-with open("counter.txt", 'r') as f:
-    counter = int(f.read())
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
@@ -33,14 +30,16 @@ async def on_ready():
     with open("problems.csv", "r") as f:
         problems = list(csv.reader(f))
 
+    start_date = datetime(2024, 1, 1, tzinfo=MY_TIMEZONE)
+    now = datetime.now(MY_TIMEZONE)
+    i = (now - start_date).days % len(problems)
+
     if current_hour == 5:
-        embed = discord.Embed(title="Problem", description=problems[counter][0], color=discord.Color.green())
+        embed = discord.Embed(title="Problem", description=problems[i][0], color=discord.Color.green())
         await channel.send(embed=embed)
     else:
-        embed = discord.Embed(title="Answer", description=problems[counter][1], color=discord.Color.blue())
+        embed = discord.Embed(title="Answer", description=problems[(i-1) % len(problems)][1], color=discord.Color.blue())
         await channel.send(embed=embed)
-        with open("counter.txt", "w") as f:
-            f.write(counter+1)
 
     print("Task complete. Shutting down.")
     await bot.close() 
