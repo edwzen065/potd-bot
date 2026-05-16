@@ -36,9 +36,11 @@ async def on_ready():
     if current_hour == 5:
         embed = discord.Embed(title="Problem", description=problems[i][0], color=discord.Color.green())
         await channel.send(embed=embed)
-    else:
+    elif current_hour == 0:
         embed = discord.Embed(title="Answer", description=problems[(i-1) % len(problems)][1], color=discord.Color.blue())
         await channel.send(embed=embed)
+    else:
+        await channel.send("click")
 
     print("Task complete. Shutting down.")
     await bot.close() 
