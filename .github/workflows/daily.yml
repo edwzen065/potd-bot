@@ -1,10 +1,8 @@
 name: Daily Bot Trigger
 on:
   schedule:
-    # 7:00 UTC (Midnight LA) and 12:00 UTC (5:00 AM LA)
     - cron: '0 * * * *'
-  workflow_dispatch: # This adds a "Run" button so you can test it manually
-
+  workflow_dispatch:
 jobs:
   run-bot:
     runs-on: ubuntu-latest

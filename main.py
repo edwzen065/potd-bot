@@ -29,18 +29,24 @@ async def on_ready():
     with open("problems.csv", "r") as f:
         problems = list(csv.reader(f))
 
+    with open("answerGiven.txt", "r") as f:
+        answerGiven = f.read()
+
     start_date = datetime(2024, 1, 1, tzinfo=MY_TIMEZONE)
     now = datetime.now(MY_TIMEZONE)
     i = (now - start_date).days % len(problems)
 
-    if current_hour == 5:
+    if answerGiven == 1:
         embed = discord.Embed(title="Problem", description=problems[i][0], color=discord.Color.green())
         await channel.send(embed=embed)
-    elif current_hour == 0:
+        answerGiven = 0
+    else:
         embed = discord.Embed(title="Answer", description=problems[(i-1) % len(problems)][1], color=discord.Color.blue())
         await channel.send(embed=embed)
-    else:
-        await channel.send("click")
+        answerGiven = 1
+
+    with open("answerGiven.txt", "r") as f:
+        f.write(answerGiven)
 
     print("Task complete. Shutting down.")
     await bot.close() 
