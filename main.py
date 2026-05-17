@@ -45,7 +45,7 @@ async def on_ready():
         await channel.send(embed=embed)
         answerGiven = 1
 
-    with open("answerGiven.txt", "r") as f:
+    with open("answerGiven.txt", "w") as f:
         f.write(str(answerGiven))
 
     print("Task complete. Shutting down.")
