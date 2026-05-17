@@ -30,7 +30,7 @@ async def on_ready():
         problems = list(csv.reader(f))
 
     with open("answerGiven.txt", "r") as f:
-        answerGiven = f.read()
+        answerGiven = int(f.read().strip())
 
     start_date = datetime(2024, 1, 1, tzinfo=MY_TIMEZONE)
     now = datetime.now(MY_TIMEZONE)
