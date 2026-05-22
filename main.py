@@ -37,8 +37,10 @@ async def on_ready():
     i = (now - start_date).days % len(problems)
 
     if answerGiven == 1:
-        embed = discord.Embed(title="Problem", description=problems[i][0], color=discord.Color.green())
-        await channel.send(embed=embed)
+        file = discord.File(f"images/{int(problems[i][0]):04d}.png", filename=f"{int(problems[i][0]):04d}.png")
+        embed = discord.Embed(title="Problem", color=discord.Color.green())
+        embed.set_image(url=f"attachment://{int(problems[i][0]):04d}.png")
+        await channel.send(file = file, embed=embed)
         answerGiven = 0
     else:
         embed = discord.Embed(title="Answer", description=problems[(i-1) % len(problems)][1], color=discord.Color.blue())
