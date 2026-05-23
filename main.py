@@ -42,6 +42,7 @@ async def on_ready():
         embed = discord.Embed(title="Answer", description=problems[i][1], color=discord.Color.blue())
         await channel.send(embed=embed)
         answerGiven = 1
+        i+=1
 
     with open("answerGiven.txt", "w") as f:
         f.write(f"{answerGiven},{i}")
