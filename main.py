@@ -30,11 +30,7 @@ async def on_ready():
         problems = list(csv.reader(f))
 
     with open("answerGiven.txt", "r") as f:
-        answerGiven = int(f.read().strip())
-
-    start_date = datetime(2024, 1, 1, tzinfo=MY_TIMEZONE)
-    now = datetime.now(MY_TIMEZONE)
-    i = (now - start_date).days % len(problems)
+        answerGiven, i = [int(el) for el in f.read().strip().split(",")]
 
     if answerGiven == 1:
         file = discord.File(f"images/{int(problems[i][0]):04d}.png", filename=f"{int(problems[i][0]):04d}.png")
@@ -43,12 +39,12 @@ async def on_ready():
         await channel.send(file = file, embed=embed)
         answerGiven = 0
     else:
-        embed = discord.Embed(title="Answer", description=problems[(i-1) % len(problems)][1], color=discord.Color.blue())
+        embed = discord.Embed(title="Answer", description=problems[i][1], color=discord.Color.blue())
         await channel.send(embed=embed)
         answerGiven = 1
 
     with open("answerGiven.txt", "w") as f:
-        f.write(str(answerGiven))
+        f.write(str(answerGiven)+str(i))
 
     print("Task complete. Shutting down.")
     await bot.close() 
