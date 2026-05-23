@@ -44,7 +44,7 @@ async def on_ready():
         answerGiven = 1
 
     with open("answerGiven.txt", "w") as f:
-        f.write(str(answerGiven)+str(i))
+        f.write(f"{answerGiven},{i}")
 
     print("Task complete. Shutting down.")
     await bot.close() 
